@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <!-- viewport-fit=cover: usa toda la pantalla del iPhone, incluida la zona de la isla/muesca -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Plan Fuerza</title>
+  <meta name="description" content="Contador de calorías, rutina y seguimiento del plan de definición y fuerza.">
+
+  <!-- Para instalarla en la pantalla de inicio como si fuera una app -->
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#0b0d10">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Plan Fuerza">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="iconos/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="iconos/icon-192.png">
+
+  <link rel="stylesheet" href="css/estilos.css">
+  <script type="module" src="js/app.js"></script>
+</head>
+<body>
+
+  <!-- Cabecera: título de la pantalla y el día que estás viendo -->
+  <header class="cabecera">
+    <div class="cabecera-fila">
+      <h1 id="titulo">Hoy</h1>
+      <nav class="navfecha" id="navfecha" aria-label="Cambiar de día">
+        <button type="button" class="flecha" data-fecha="-1" aria-label="Día anterior">‹</button>
+        <label class="fecha-btn">
+          <span id="fecha-texto"></span>
+          <input type="date" id="fecha-elegir" aria-label="Elegir fecha">
+        </label>
+        <button type="button" class="flecha" data-fecha="1" aria-label="Día siguiente">›</button>
+        <button type="button" class="volver-hoy" id="volver-hoy" data-fecha="hoy" hidden>Hoy</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Las 5 pantallas; solo una está visible a la vez -->
+  <main>
+    <section id="v-hoy" class="vista" aria-label="Hoy"></section>
+    <section id="v-comida" class="vista" aria-label="Comida" hidden></section>
+    <section id="v-entreno" class="vista" aria-label="Entreno" hidden></section>
+    <section id="v-progreso" class="vista" aria-label="Progreso" hidden></section>
+    <section id="v-plan" class="vista" aria-label="Mi plan" hidden></section>
+  </main>
+
+  <!-- Temporizador de descanso (aparece al guardar una serie) -->
+  <div id="temporizador" class="temporizador" hidden>
+    <div class="tm-pista"><div class="tm-avance"></div></div>
+    <div class="tm-fila">
+      <div class="tm-texto"><span class="tm-nombre"></span><b class="tm-tiempo">0:00</b></div>
+      <button type="button" data-tm="-15">−15 s</button>
+      <button type="button" data-tm="15">+15 s</button>
+      <button type="button" data-tm="x" aria-label="Quitar temporizador">✕</button>
+    </div>
+  </div>
+
+  <!-- Pestañas de abajo -->
+  <nav class="pestanas" id="pestanas" aria-label="Secciones">
+    <button type="button" data-vista="hoy">
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-4.5v-6h-5v6H5a1 1 0 0 1-1-1z"/></svg>
+      <span>Hoy</span>
+    </button>
+    <button type="button" data-vista="comida">
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3v6a3 3 0 0 0 6 0V3M9 3v18M18 21V3c-2 .8-3.5 3.2-3.5 6.5S16 14 18 14"/></svg>
+      <span>Comida</span>
+    </button>
+    <button type="button" data-vista="entreno">
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10v4M6.5 7v10M17.5 7v10M21 10v4M6.5 12h11"/></svg>
+      <span>Entreno</span>
+    </button>
+    <button type="button" data-vista="progreso">
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4v16h16M8 15l3.5-4.5 3 2.5L20 7"/></svg>
+      <span>Progreso</span>
+    </button>
+    <button type="button" data-vista="plan">
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 3.5h6v3H9zM9 11h6M9 15h4"/></svg>
+      <span>Plan</span>
+    </button>
+  </nav>
+
+  <!-- Hoja que sube desde abajo para capturar datos (la llena js/ui.js) -->
+  <dialog id="hoja" class="hoja"></dialog>
+
+  <!-- Mensajitos temporales ("Agregado", "Deshacer"…) -->
+  <div id="avisos" class="avisos" role="status" aria-live="polite"></div>
+
+  <noscript>Esta app necesita JavaScript activado.</noscript>
+</body>
+</html>

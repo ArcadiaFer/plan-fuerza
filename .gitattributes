@@ -1,0 +1,5 @@
+# Texto siempre con saltos de línea "LF".
+* text=auto eol=lf
+
+# Archivos binarios: Git no debe tocarlos.
+*.png binary
